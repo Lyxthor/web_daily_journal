@@ -1,0 +1,65 @@
+@font-face
+{
+  font-family: "montserrat";
+  src: url('fonts/Montserrat/static/Montserrat-Regular.ttf');
+}
+@font-face
+{
+  font-family: "poppins";
+  src: url('fonts/Poppins/Poppins-Regular.ttf');
+}
+@font-face
+{
+  font-family: "poppins-bold";
+  src: url('fonts/Poppins/Poppins-Bold.ttf');
+}
+@font-face
+{
+  font-family: "lobster";
+  src: url('fonts/Lobster/Lobster-Regular.ttf');
+}
+.font-montserrat
+{
+  font-family: "montserrat" !important;
+}
+.font-poppins
+{
+  font-family: "poppins" !important;
+}
+.font-poppins-bold
+{
+  font-family: "poppins-bold" !important;
+}
+.font-lobster
+{
+  font-family: "lobster" !important;
+}
+/* .hero {
+  height: 100vh; 
+  font-family: "Times New Roman";
+} */
+
+.carousel img {
+  height: 300px; 
+  object-fit: cover;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.carousel-control-next-icon {
+  background-color: black; 
+  width: 50px;
+  height: 50px;
+  background-size: 100%; 
+}
+
+.carousel-control-prev-icon {
+  background-color: black; 
+  width: 50px;
+  height: 50px;
+  background-size: 100%; 
+}
+
