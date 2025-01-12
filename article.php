@@ -8,7 +8,7 @@
     </div>
     <div class="row">
         <div class="w-100" id="article_data">
-            <?= include "article_data.php" ?>
+            <?php include "article_data.php" ?>
         </div>
         <!-- Awal Modal Tambah-->
         <div class="modal fade" id="modalTambah" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

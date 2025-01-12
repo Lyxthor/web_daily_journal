@@ -28,10 +28,10 @@ session_start(); // Mulai session untuk mengecek apakah pengguna sudah login
             <div class="collapse navbar-collapse ms-md-0" id="navbarNavAltMarkup">
                 <div class="navbar-nav ms-auto">
                     <a class="nav-link fs-6" href="#home">Home</a>
-                    <a class="nav-link fs-6" href="#artikel">Article</a>
+                    <a class="nav-link fs-6" href="#article">Article</a>
                     <a class="nav-link fs-6" href="#galeri">Gallery</a>
                     <a class="nav-link fs-6" href="#schedule">Schedule</a>
-                    <a class="nav-link fs-6" href="#profile">Profile</a>
+                    <a class="nav-link fs-6" href="#About">Profile</a>
                 </div>
             </div>
 
@@ -55,7 +55,7 @@ session_start(); // Mulai session untuk mengecek apakah pengguna sudah login
         </div>
     </nav>
 
-      <section id="home" class="hero py-5 mb-5">
+      <section id="home" class="hero py-5 mb-5 bg-success-subtle">
         <div class="container h-100">
           <div class="row justify-content-between align-items-center h-100">
             <div class="col-lg-6">
@@ -69,15 +69,30 @@ session_start(); // Mulai session untuk mengecek apakah pengguna sudah login
             <div class="col-lg-5">
               <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img src="foto/5.jpg" class="d-block w-100 rounded" alt="Image 1">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="foto/6.jpg" class="d-block w-100 rounded" alt="Image 2">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="foto/7.jpg" class="d-block w-100 rounded" alt="Image 3">
-                  </div>
+                    <?php 
+              
+                    $sql = "SELECT * FROM gallery";
+                    $hasil = $conn->query($sql);
+                    ?>
+                    <?php if($hasil->num_rows == 0) : ?>
+                        <div class="text-center">
+                            Belum ada foto di gallery
+                        </div>
+                    <?php else : ?>
+                        <?php $gallery = $hasil->fetch_assoc() ?>
+                        <div class="carousel-item active">
+                          <div class="w-full ratio ratio-16x9">
+                            <img src="foto/<?= $gallery['gambar'] ?>" class="h-100 object-fit-cover rounded" alt="Gallery Image 1">
+                          </div>
+                        </div>
+                        <?php while($gallery = $hasil->fetch_assoc()) : ?>
+                          <div class="carousel-item">
+                            <div class="w-full ratio ratio-16x9">
+                              <img src="foto/<?= $gallery['gambar'] ?>" class="h-100 object-fit-cover rounded" alt="Gallery Image 1">
+                            </div>
+                          </div>
+                        <?php endwhile ?>
+                    <?php endif ?>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -171,11 +186,11 @@ session_start(); // Mulai session untuk mengecek apakah pengguna sudah login
               
               
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Next</span>
             </button>

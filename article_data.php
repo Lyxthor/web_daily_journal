@@ -49,7 +49,7 @@
                                     <?= $row["judul"] ?>
                                 </div>
                                 <div class="small text-secondary">
-                                    <?= substr_replace($row["isi"], "...", 200)?> <a href="#">Show Article</a>
+                                    <?= substr_replace($row["isi"], "...", 200)?> <a href="post.php?post_id=<?= $row['id'] ?>">Show Article</a>
                                 </div>
                                 
                             </td>
@@ -158,38 +158,43 @@ $total_records = $hasil1->num_rows;
 <p>Total article : <?php echo $total_records; ?></p>
 <nav class="mb-2">
     <ul class="pagination justify-content-end">
-    <?php
-        $jumlah_page = ceil($total_records / $limit);
-        $jumlah_number = 1; //jumlah halaman ke kanan dan kiri dari halaman yang aktif
-        $start_number = ($hlm > $jumlah_number)? $hlm - $jumlah_number : 1;
-        $end_number = ($hlm < ($jumlah_page - $jumlah_number))? $hlm + $jumlah_number : $jumlah_page;
-        $params = $_GET;
-        
-        if($hlm == 1){
-            echo '<li class="page-item disabled"><a class="page-link" href="#">First</a></li>';
-            echo '<li class="page-item disabled"><a class="page-link" href="#"><span aria-hidden="true">&laquo;</span></a></li>';
-        } else {
+        <?php
+            
+
+            $jumlah_page = (int) ceil($total_records / $limit);
+            $jumlah_number = 1; //jumlah halaman ke kanan dan kiri dari halaman yang aktif
+            $start_number = ($hlm > $jumlah_number)? $hlm - $jumlah_number : 1;
+            $end_number = ($hlm < ($jumlah_page - $jumlah_number))? $hlm + $jumlah_number : $jumlah_page;
+            $params = $_GET;
+            
             $link_prev = ($hlm > 1)? $hlm - 1 : 1;
-            echo '<li class="page-item halaman" id="1"><a class="page-link" href="#">First</a></li>';
-            echo '<li class="page-item halaman" id="'.$link_prev.'"><a class="page-link" href="#"><span aria-hidden="true">&laquo;</span></a></li>';
-        }
+            $param1 = array_merge($params, ["hlm"=>1]);
+            $param2 = array_merge($params, ["hlm"=>$link_prev]);
 
-        for($i = $start_number; $i <= $end_number; $i++){
-            $params = array_merge($params, ["hlm"=>$i]);
-            $queryString = http_build_query($params);
-            $link_active = ($hlm == $i)? ' active' : '';
-            echo '<li class="page-item halaman '.$link_active.'" id="'.$i.'"><a class="page-link" href="?'.$queryString.'">'.$i.'</a></li>';
-        }
+            $link1 = http_build_query($param1);
+            $link2 = http_build_query($param2);
+            $active = $hlm == 1 ? "disabled" : "";
+            echo '<li class="page-item '.$active.'"><a class="page-link" href="?'.$link1.'">First</a></li>';
+            echo '<li class="page-item '.$active.'"><a class="page-link" href="?'.$link2.'"><span aria-hidden="true">&laquo;</span></a></li>';
+            
 
-        if($hlm == $jumlah_page){
-            echo '<li class="page-item disabled"><a class="page-link" href="#"><span aria-hidden="true">&raquo;</span></a></li>';
-            echo '<li class="page-item disabled"><a class="page-link" href="#">Last</a></li>';
-        } else {
-        $link_next = ($hlm < $jumlah_page)? $hlm + 1 : $jumlah_page;
-            echo '<li class="page-item halaman" id="'.$link_next.'"><a class="page-link" href="#"><span aria-hidden="true">&raquo;</span></a></li>';
-            echo '<li class="page-item halaman" id="'.$jumlah_page.'"><a class="page-link" href="#">Last</a></li>';
-        }
-    ?>
+            for($i = $start_number; $i <= $end_number; $i++){
+                $param = array_merge($params, ["hlm"=>$i]);
+                $queryString = http_build_query($param);
+                $link_active = ($hlm == $i)? ' active' : '';
+                echo '<li class="page-item halaman '.$link_active.'" id="'.$i.'"><a class="page-link" href="?'.$queryString.'">'.$i.'</a></li>';
+            }
+
+            $link_next = ($hlm < $jumlah_page)? $hlm + 1 : $jumlah_page;
+            $param1 = array_merge($params, ["hlm"=>$jumlah_page]);
+            $param2 = array_merge($params, ["hlm"=>$link_next]);
+
+            $link1 = http_build_query($param1);
+            $link2 = http_build_query($param2);
+            $active = $hlm == $jumlah_page ? "disabled" : "";
+            echo '<li class="page-item halaman '.$active.'" id="'.$link_next.'"><a class="page-link" href="?'.$link2.'"><span aria-hidden="true">&raquo;</span></a></li>';
+            echo '<li class="page-item halaman '.$active.'" id="'.$jumlah_page.'"><a class="page-link" href="?'.$link1.'">Last</a></li>';
+        ?>
     </ul>
 </nav>
 </div>

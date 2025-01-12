@@ -68,7 +68,8 @@ if (!isset($_SESSION['username'])) {
                     <a class="nav-link dropdown-toggle text-danger fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <?= $_SESSION['username']?>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="?page=profile">Profile</a></li> 
                         <li><a class="dropdown-item" href="logout.php">Logout</a></li> 
                     </ul>
                 </li> 
